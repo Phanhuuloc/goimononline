@@ -7,7 +7,9 @@
 //import org.springframework.http.ResponseEntity;
 //import org.springframework.web.bind.annotation.*;
 //import vn.menugo.server.Exception.FailedCreatingEx;
+//import vn.menugo.server.Repo.CategoryRepository;
 //import vn.menugo.server.Service.CategoryRepositoryService;
+//import vn.menugo.server.Service.CategoryService;
 //import vn.menugo.server.Service.ProviderRepositoryService;
 //import vn.menugo.server.model.*;
 //
@@ -24,14 +26,12 @@
 //
 //    private static final Logger logger = LoggerFactory.getLogger(CategoryController.class);
 //
-//    private final CategoryRepositoryService service;
+//    private final CategoryService categoryService;
 //
-//    private final ProviderRepositoryService pservice;
 //
 //    @Autowired
-//    public CategoryController(CategoryRepositoryService service, ProviderRepositoryService pservice) {
-//        this.service = service;
-//        this.pservice = pservice;
+//    public CategoryController(CategoryService categoryService) {
+//        this.categoryService = categoryService;
 //    }
 //
 //    @PostMapping(value = "")
@@ -39,7 +39,6 @@
 //
 //        Category c = new Category(UUID.randomUUID(), category.getName(), category.getDefaultImage());
 //        Provider provider = pservice.findByUuid(category.getProvider().getUuid());
-//
 //        c.setProvider(provider);
 //
 //        try {

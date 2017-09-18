@@ -2,11 +2,14 @@ package vn.menugo.server.model;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.GenericGenerator;
 
+import javax.annotation.Generated;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,63 +19,33 @@ import java.util.UUID;
  * Created by itn0309 on 7/7/2017.
  */
 @Entity(name = "category")
-public class Category {
+@Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-25T04:31:55.163Z")
+public @Data
+class Category {
     @Id
     @GenericGenerator(name = "hibernate-uuid", strategy = "hibernate-uuid")
     @Column(name = "uid", length = 16)
     private UUID uuid;
-
     private String name;
-
     private String defaultImage;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "category_mon",
-            joinColumns = {@JoinColumn(name = "uid_category", referencedColumnName = "uid")},
-            inverseJoinColumns = {@JoinColumn(name = "uid_mon", referencedColumnName = "uid")})
-    private Set<Mon> mons = new HashSet<>();
+//    @ManyToMany
+//    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+//    @JoinTable(name = "category_mon",
+//            joinColumns = {@JoinColumn(name = "uid_category", referencedColumnName = "uid")},
+//            inverseJoinColumns = {@JoinColumn(name = "uid_mon", referencedColumnName = "uid")})
+//    private Set<Mon> mons = new HashSet<>();
 
     @ManyToMany(mappedBy = "categories")
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
     private Set<Provider> providers = new HashSet<>();
 
-    public UUID getUuid() {
-        return uuid;
+    public Category() {
     }
 
-    public void setUuid(UUID uuid) {
+    public Category(UUID uuid, String name) {
         this.uuid = uuid;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
         this.name = name;
-    }
-
-    public String getDefaultImage() {
-        return defaultImage;
-    }
-
-    public void setDefaultImage(String defaultImage) {
-        this.defaultImage = defaultImage;
-    }
-
-    public Set<Mon> getMons() {
-        return mons;
-    }
-
-    public void setMons(Set<Mon> mons) {
-        this.mons = mons;
-    }
-
-
-//    public Set<Provider> getProviders() {
-//        return providers;
-//    }
-
-    public void setProviders(Set<Provider> providers) {
-        this.providers = providers;
     }
 }
