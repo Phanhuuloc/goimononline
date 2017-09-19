@@ -15,5 +15,5 @@ import java.util.UUID;
 public interface ProviderRepository extends JpaRepository<Provider, UUID> {
     Provider findByUuid(UUID uuid);
 
-    List<Provider> findByUuidAndCategories_Name(UUID uuid, String name);
+    Provider findByName(String name);
 }

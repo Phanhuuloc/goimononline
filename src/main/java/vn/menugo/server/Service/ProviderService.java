@@ -34,7 +34,8 @@ public class ProviderService {
     }
 
     public void create(Provider provider) {
-        provider.setUuid(UUID.randomUUID());
+        Provider p = providerRepository.findByName(provider.getName());
+        provider.setUuid(p != null ? p.getUuid() : UUID.randomUUID());
         providerRepository.save(provider);
     }
 
@@ -59,7 +60,7 @@ public class ProviderService {
         provider.setCategories(categories);
 
         Mon mon = createMon(name, price, des, note);
-        Set<Mon> mons = category.getMons()!=null?category.getMons():new HashSet<>();
+        Set<Mon> mons = category.getMons() != null ? category.getMons() : new HashSet<>();
         mons.add(mon);
         category.setMons(mons);
 
@@ -73,7 +74,7 @@ public class ProviderService {
 
     private Category createCategory(String name) {
         Category category = categoryRepository.findByName(name);
-        return category!=null?category:new Category(UUID.randomUUID(), name);
+        return category != null ? category : new Category(UUID.randomUUID(), name);
     }
 
 //    private Provider createProvider(UUID uuid) {

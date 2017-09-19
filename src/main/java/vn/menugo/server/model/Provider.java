@@ -31,7 +31,7 @@ public class Provider {
     private double latitude;
     private double longitude;
     private String openHour;
-    private int star;
+    private double star;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "provider_category",
@@ -43,7 +43,7 @@ public class Provider {
     }
 
     public Provider(String name, String image, String description, String address, String url, double latitude,
-                    double longitude, String openHour, int star) {
+                    double longitude, String openHour, double star) {
         this.name = name;
         this.image = image;
         this.description = description;

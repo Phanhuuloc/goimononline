@@ -36,9 +36,8 @@ public class ProviderController {
                                          @RequestParam String description, @RequestParam String address,
                                          @RequestParam String url, @RequestParam double latitude,
                                          @RequestParam double longitude, @RequestParam String openHour,
-                                         @RequestParam int star) {
+                                         @RequestParam double star) {
         Provider provider = new Provider(name, image, description, address, url, latitude, longitude, openHour, star);
-        provider.setUuid(UUID.randomUUID());
         providerService.create(provider);
         return new ResponseEntity(HttpStatus.OK);
     }
