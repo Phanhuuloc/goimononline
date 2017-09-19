@@ -1,15 +1,10 @@
 package vn.menugo.server.model;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.annotation.Generated;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,10 +13,10 @@ import java.util.UUID;
 /**
  * Created by itn0309 on 7/7/2017.
  */
+@Data
+@EqualsAndHashCode(exclude = "providers", callSuper = false)
 @Entity(name = "category")
-@Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-25T04:31:55.163Z")
-public @Data
-class Category {
+public class Category {
     @Id
     @GenericGenerator(name = "hibernate-uuid", strategy = "hibernate-uuid")
     @Column(name = "uid", length = 16)
@@ -29,12 +24,11 @@ class Category {
     private String name;
     private String defaultImage;
 
-//    @ManyToMany
-//    @Cascade(org.hibernate.annotations.CascadeType.ALL)
-//    @JoinTable(name = "category_mon",
-//            joinColumns = {@JoinColumn(name = "uid_category", referencedColumnName = "uid")},
-//            inverseJoinColumns = {@JoinColumn(name = "uid_mon", referencedColumnName = "uid")})
-//    private Set<Mon> mons = new HashSet<>();
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "category_mon",
+            joinColumns = {@JoinColumn(name = "uid_category", referencedColumnName = "uid")},
+            inverseJoinColumns = {@JoinColumn(name = "uid_mon", referencedColumnName = "uid")})
+    private Set<Mon> mons = new HashSet<>();
 
     @ManyToMany(mappedBy = "categories")
     @Getter(AccessLevel.NONE)
@@ -48,4 +42,28 @@ class Category {
         this.uuid = uuid;
         this.name = name;
     }
+
+    //    public UUID getUuid() {
+//        return uuid;
+//    }
+//
+//    public void setUuid(UUID uuid) {
+//        this.uuid = uuid;
+//    }
+//
+//    public String getName() {
+//        return name;
+//    }
+//
+//    public void setName(String name) {
+//        this.name = name;
+//    }
+//
+//    public String getDefaultImage() {
+//        return defaultImage;
+//    }
+//
+//    public void setDefaultImage(String defaultImage) {
+//        this.defaultImage = defaultImage;
+//    }
 }

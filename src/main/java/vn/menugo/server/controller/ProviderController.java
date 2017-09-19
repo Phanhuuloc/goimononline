@@ -49,12 +49,12 @@ public class ProviderController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-//    @PostMapping(value = "/mon", produces = {"application/json", "text/json"})
-//    public ResponseEntity createMon(@RequestParam UUID pid, @RequestParam String cname, @RequestParam String name,
-//                                    @RequestParam int price, @RequestParam String des, @RequestParam String note) {
-//        providerService.fetchMon(pid, cname, name, price, des, note);
-//        return new ResponseEntity(HttpStatus.OK);
-//    }
+    @PostMapping(value = "/mon", produces = {"application/json", "text/json"})
+    public ResponseEntity createMon(@RequestParam UUID pid, @RequestParam String cname, @RequestParam String name,
+                                    @RequestParam int price, @RequestParam String des, @RequestParam String note) {
+        providerService.fetchMon(pid, cname, name, price, des, note);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 
     @GetMapping(value = "/list", produces = {"application/json", "text/json"})
     public ResponseEntity getProviders() {

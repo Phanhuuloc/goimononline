@@ -3,9 +3,11 @@ package vn.menugo.server.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vn.menugo.server.Repo.CategoryRepository;
+import vn.menugo.server.Repo.MonRepository;
 import vn.menugo.server.Repo.ProviderRepository;
 import vn.menugo.server.model.Category;
 
+import vn.menugo.server.model.Mon;
 import vn.menugo.server.model.Provider;
 
 import java.util.HashSet;
@@ -17,12 +19,14 @@ import java.util.UUID;
 public class ProviderService {
     private final ProviderRepository providerRepository;
     private final CategoryRepository categoryRepository;
+    private final MonRepository monRepository;
 
 
     @Autowired
-    public ProviderService(ProviderRepository providerRepository, CategoryRepository categoryRepository) {
+    public ProviderService(ProviderRepository providerRepository, CategoryRepository categoryRepository, MonRepository monRepository) {
         this.providerRepository = providerRepository;
         this.categoryRepository = categoryRepository;
+        this.monRepository = monRepository;
     }
 
     public Provider getOne(UUID uuid) {
@@ -43,29 +47,29 @@ public class ProviderService {
         Category category = new Category(UUID.randomUUID(), name);
         Set<Category> categories = provider.getCategories() != null ? provider.getCategories() : new HashSet<>();
         categories.add(category);
-        providerRepository.save(provider);
+        providerRepository.saveAndFlush(provider);
     }
 
-//    public void fetchMon(UUID pid, String cName, String name, int price, String des, String note) {
-//        Provider provider = providerRepository.findOne(pid);
-//        Category category = createCategory(cName);
-//
-//        Set<Category> categories = provider.getCategories() != null ? provider.getCategories() : new HashSet<>();
-//        categories.add(category);
-//        provider.setCategories(categories);
-//
-//        Mon mon = createMon(name, price, des, note);
-//        Set<Mon> mons = category.getMons()!=null?category.getMons():new HashSet<>();
-//        mons.add(mon);
-//        category.setMons(mons);
-//
-//        providerRepository.saveAndFlush(provider);
-//    }
-//
-//    private Mon createMon(String name, int price, String des, String note) {
-//        Mon mon = monRepository.findByName(name);
-//        return mon != null ? mon : new Mon(UUID.randomUUID(), name, price, des, note);
-//    }
+    public void fetchMon(UUID pid, String cName, String name, int price, String des, String note) {
+        Provider provider = providerRepository.findOne(pid);
+        Category category = createCategory(cName);
+
+        Set<Category> categories = provider.getCategories() != null ? provider.getCategories() : new HashSet<>();
+        categories.add(category);
+        provider.setCategories(categories);
+
+        Mon mon = createMon(name, price, des, note);
+        Set<Mon> mons = category.getMons()!=null?category.getMons():new HashSet<>();
+        mons.add(mon);
+        category.setMons(mons);
+
+        providerRepository.saveAndFlush(provider);
+    }
+
+    private Mon createMon(String name, int price, String des, String note) {
+        Mon mon = monRepository.findByName(name);
+        return mon != null ? mon : new Mon(UUID.randomUUID(), name, price, des, note);
+    }
 
     private Category createCategory(String name) {
         Category category = categoryRepository.findByName(name);

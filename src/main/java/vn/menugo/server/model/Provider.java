@@ -1,7 +1,7 @@
 package vn.menugo.server.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.Data;
+import lombok.*;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -14,9 +14,10 @@ import java.util.UUID;
 /**
  * Created by itn0309 on 5/29/2017.
  */
+@Data
+@EqualsAndHashCode
 @Entity(name = "provider")
-@Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-25T04:31:55.163Z")
-public @Data class Provider {
+public class Provider {
 
     @Id
     @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
@@ -32,8 +33,7 @@ public @Data class Provider {
     private String openHour;
     private int star;
 
-    @ManyToMany
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "provider_category",
             joinColumns = {@JoinColumn(name = "uid_provider", referencedColumnName = "uid")},
             inverseJoinColumns = {@JoinColumn(name = "uid_category", referencedColumnName = "uid")})
@@ -54,4 +54,92 @@ public @Data class Provider {
         this.openHour = openHour;
         this.star = star;
     }
+
+//    public UUID getUuid() {
+//        return uuid;
+//    }
+//
+//    public void setUuid(UUID uuid) {
+//        this.uuid = uuid;
+//    }
+//
+//    public String getName() {
+//        return name;
+//    }
+//
+//    public void setName(String name) {
+//        this.name = name;
+//    }
+//
+//    public String getImage() {
+//        return image;
+//    }
+//
+//    public void setImage(String image) {
+//        this.image = image;
+//    }
+//
+//    public String getDescription() {
+//        return description;
+//    }
+//
+//    public void setDescription(String description) {
+//        this.description = description;
+//    }
+//
+//    public String getAddress() {
+//        return address;
+//    }
+//
+//    public void setAddress(String address) {
+//        this.address = address;
+//    }
+//
+//    public String getUrl() {
+//        return url;
+//    }
+//
+//    public void setUrl(String url) {
+//        this.url = url;
+//    }
+//
+//    public double getLatitude() {
+//        return latitude;
+//    }
+//
+//    public void setLatitude(double latitude) {
+//        this.latitude = latitude;
+//    }
+//
+//    public double getLongitude() {
+//        return longitude;
+//    }
+//
+//    public void setLongitude(double longitude) {
+//        this.longitude = longitude;
+//    }
+//
+//    public String getOpenHour() {
+//        return openHour;
+//    }
+//
+//    public void setOpenHour(String openHour) {
+//        this.openHour = openHour;
+//    }
+//
+//    public int getStar() {
+//        return star;
+//    }
+//
+//    public void setStar(int star) {
+//        this.star = star;
+//    }
+//
+//    public Set<Category> getCategories() {
+//        return categories;
+//    }
+//
+//    public void setCategories(Set<Category> categories) {
+//        this.categories = categories;
+//    }
 }
