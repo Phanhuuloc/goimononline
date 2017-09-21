@@ -3,10 +3,9 @@ package vn.menugo.server.controller;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import vn.menugo.server.Service.ProviderService;
+import vn.menugo.server.service.ProviderService;
 import vn.menugo.server.model.Category;
 import vn.menugo.server.model.Provider;
 import vn.menugo.server.model.Wrap;
@@ -32,11 +31,15 @@ public class ProviderController {
 
 
     @PostMapping(value = "", produces = {"application/json", "text/json"})
-    public ResponseEntity createProvider(@RequestParam String name, @RequestParam String image,
-                                         @RequestParam String description, @RequestParam String address,
-                                         @RequestParam String url, @RequestParam double latitude,
-                                         @RequestParam double longitude, @RequestParam String openHour,
-                                         @RequestParam double star) {
+    public ResponseEntity createProvider(@RequestParam String name,
+                                         @RequestParam(defaultValue = "https://media.foody.vn/res/g13/126459/prof/s576x330/foody-mobile-12-jpg-972-636149689500469055.jpg") String image,
+                                         @RequestParam(defaultValue = "Nhà Hàng Ẩm Thực Gà Hàn Quốc") String description,
+                                         @RequestParam(defaultValue = "16 Lê Quý Đôn,  Quận 3, TP. HCM") String address,
+                                         @RequestParam(defaultValue = "https://www.foody.vn/ho-chi-minh/nha-hang-am-thuc-ga-boom-dak") String url,
+                                         @RequestParam(defaultValue = "10.300003") double latitude,
+                                         @RequestParam(defaultValue = "106.000006") double longitude,
+                                         @RequestParam(defaultValue = "Trưa - Tối: 11:00 - 22:00") String openHour,
+                                         @RequestParam(defaultValue = "8.2") double star) {
         Provider provider = new Provider(name, image, description, address, url, latitude, longitude, openHour, star);
         providerService.create(provider);
         return new ResponseEntity(HttpStatus.OK);

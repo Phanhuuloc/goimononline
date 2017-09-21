@@ -1,10 +1,10 @@
-package vn.menugo.server.Service;
+package vn.menugo.server.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import vn.menugo.server.Repo.CategoryRepository;
-import vn.menugo.server.Repo.MonRepository;
-import vn.menugo.server.Repo.ProviderRepository;
+import vn.menugo.server.repo.CategoryRepository;
+import vn.menugo.server.repo.MonRepository;
+import vn.menugo.server.repo.ProviderRepository;
 import vn.menugo.server.model.Category;
 
 import vn.menugo.server.model.Mon;
@@ -77,11 +77,4 @@ public class ProviderService {
         return category != null ? category : new Category(UUID.randomUUID(), name);
     }
 
-//    private Provider createProvider(UUID uuid) {
-//        Provider provider = providerRepository.findOne(uuid);
-//        if(null==provider){
-//            provider = new Provider();
-//        }
-//        return provider;
-//    }
 }

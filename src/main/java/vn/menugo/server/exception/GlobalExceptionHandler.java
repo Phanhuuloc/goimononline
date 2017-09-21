@@ -1,4 +1,4 @@
-package vn.menugo.server.Exception;
+package vn.menugo.server.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;

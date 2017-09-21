@@ -1,4 +1,4 @@
-package vn.menugo.server.Repo;
+package vn.menugo.server.repo;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
