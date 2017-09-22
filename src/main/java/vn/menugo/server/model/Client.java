@@ -14,8 +14,7 @@ import java.util.UUID;
 /**
  * Created by itn0309 on 8/1/2017.
  */
-@Getter
-@Setter
+@Data
 @Entity(name = "client")
 public class Client {
 

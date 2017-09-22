@@ -14,10 +14,8 @@ import java.util.UUID;
 /**
  * Created by itn0309 on 5/29/2017.
  */
-//@Data
-//@EqualsAndHashCode
-@Getter
-@Setter
+@Data
+@EqualsAndHashCode
 @Entity(name = "provider")
 public class Provider {
 

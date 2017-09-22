@@ -14,10 +14,9 @@ import java.util.UUID;
 /**
  * Created by itn0309 on 7/7/2017.
  */
-//@Data
-//@EqualsAndHashCode(exclude = "providers", callSuper = false)
-@Getter
-@Setter
+@Data
+@EqualsAndHashCode(exclude = "providers")
+@ToString(exclude = {"providers", "mons"})
 @Entity(name = "category")
 public class Category {
     @Id
@@ -28,7 +27,6 @@ public class Category {
     private String name;
     private String defaultImage;
 
-    @JsonBackReference
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "category_mon",
             joinColumns = {@JoinColumn(name = "uid_category", referencedColumnName = "uid")},

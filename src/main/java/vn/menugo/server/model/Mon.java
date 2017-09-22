@@ -11,10 +11,8 @@ import java.util.UUID;
 /**
  * Created by itn0309 on 5/29/2017.
  */
-@Getter
-@Setter
-//@Data
-//@EqualsAndHashCode(exclude = {"categories", "bills"})
+@Data
+@EqualsAndHashCode(exclude = {"categories", "bills"})
 @Entity(name = "mon")
 public class Mon {
 
