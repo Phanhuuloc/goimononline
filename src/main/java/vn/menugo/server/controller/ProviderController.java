@@ -52,9 +52,9 @@ public class ProviderController {
     }
 
     @PostMapping(value = "/mon", produces = {"application/json", "text/json"})
-    public ResponseEntity createMon(@RequestParam UUID pid, @RequestParam String cname, @RequestParam String name,
+    public ResponseEntity createMon(@RequestParam UUID pid, @RequestParam String category, @RequestParam String name,
                                     @RequestParam int price, @RequestParam String des, @RequestParam String note) {
-        providerService.fetchMon(pid, cname, name, price, des, note);
+        providerService.fetchMon(pid, category, name, price, des, note);
         return new ResponseEntity(HttpStatus.OK);
     }
 
