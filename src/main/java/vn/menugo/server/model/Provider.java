@@ -14,14 +14,17 @@ import java.util.UUID;
 /**
  * Created by itn0309 on 5/29/2017.
  */
-@Data
-@EqualsAndHashCode
+//@Data
+//@EqualsAndHashCode
+@Getter
+@Setter
 @Entity(name = "provider")
 public class Provider {
 
     @Id
-    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "uid", length = 16)
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(name = "uid", updatable = false, nullable = false)
     private UUID uuid;
     private String name;
     private String image;

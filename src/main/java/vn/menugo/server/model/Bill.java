@@ -19,8 +19,9 @@ import java.util.UUID;
 public class Bill {
 
     @Id
-    @GenericGenerator(name = "hibernate-uuid", strategy = "hibernate-uuid")
-    @Column(name = "UID", length = 16)
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(name = "uid", updatable = false, nullable = false)
     private UUID uuid;
     private String type;
     private long price;
@@ -31,6 +32,7 @@ public class Bill {
     @JsonBackReference
     private Client client;
 
+    @JsonBackReference
     @ManyToMany
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     @JoinTable(name = "bill_mon",

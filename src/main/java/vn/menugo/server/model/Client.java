@@ -2,6 +2,8 @@ package vn.menugo.server.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.annotation.Generated;
@@ -12,13 +14,15 @@ import java.util.UUID;
 /**
  * Created by itn0309 on 8/1/2017.
  */
+@Getter
+@Setter
 @Entity(name = "client")
-@Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-25T04:31:55.163Z")
-public @Data class Client {
+public class Client {
 
     @Id
-    @GenericGenerator(name = "hibernate-uuid", strategy = "hibernate-uuid")
-    @Column(name = "uid", length = 16)
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(name = "uid", updatable = false, nullable = false)
     private UUID uuid;
     private String name;
     private String pass;

@@ -1,6 +1,7 @@
 package vn.menugo.server.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.GenericGenerator;
@@ -13,17 +14,21 @@ import java.util.UUID;
 /**
  * Created by itn0309 on 7/7/2017.
  */
-@Data
-@EqualsAndHashCode(exclude = "providers", callSuper = false)
+//@Data
+//@EqualsAndHashCode(exclude = "providers", callSuper = false)
+@Getter
+@Setter
 @Entity(name = "category")
 public class Category {
     @Id
-    @GenericGenerator(name = "hibernate-uuid", strategy = "hibernate-uuid")
-    @Column(name = "uid", length = 16)
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(name = "uid", updatable = false, nullable = false)
     private UUID uuid;
     private String name;
     private String defaultImage;
 
+    @JsonBackReference
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "category_mon",
             joinColumns = {@JoinColumn(name = "uid_category", referencedColumnName = "uid")},
