@@ -1,6 +1,7 @@
 package vn.menugo.server.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,6 +9,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.annotation.Generated;
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,7 +18,7 @@ import java.util.UUID;
  */
 @Data
 @Entity(name = "client")
-public class Client {
+public class Client implements Serializable{
 
     @Id
     @GeneratedValue(generator = "UUID")
@@ -28,6 +30,7 @@ public class Client {
     private String email;
     private String address;
 
+    @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "client")
     private List<Bill> bill;
 

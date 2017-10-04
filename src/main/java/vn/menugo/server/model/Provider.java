@@ -4,9 +4,11 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.GenericGenerator;
+import org.json.JSONObject;
 
 import javax.annotation.Generated;
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -17,7 +19,7 @@ import java.util.UUID;
 @Data
 @EqualsAndHashCode
 @Entity(name = "provider")
-public class Provider {
+public class Provider implements Serializable{
 
     @Id
     @GeneratedValue(generator = "UUID")
@@ -33,6 +35,7 @@ public class Provider {
     private double longitude;
     private String openHour;
     private double star;
+    private String token;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "provider_category",
@@ -54,6 +57,11 @@ public class Provider {
         this.longitude = longitude;
         this.openHour = openHour;
         this.star = star;
+    }
+
+    public JSONObject toJSON() {
+
+        return null;
     }
 
 //    public UUID getUuid() {

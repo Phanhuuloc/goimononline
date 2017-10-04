@@ -51,9 +51,9 @@ public class ProviderService {
         providerRepository.saveAndFlush(provider);
     }
 
-    public void fetchMon(UUID pid, String cName, String name, int price, String des, String note) {
+    public void fetchMon(UUID pid, String cat, String name, int price, String des, String note) {
         Provider provider = providerRepository.findOne(pid);
-        Category category = createCategory(cName);
+        Category category = createCategory(cat);
 
         Set<Category> categories = provider.getCategories() != null ? provider.getCategories() : new HashSet<>();
         categories.add(category);

@@ -4,6 +4,8 @@ import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -14,7 +16,7 @@ import java.util.UUID;
 @Data
 @EqualsAndHashCode(exclude = {"categories", "bills"})
 @Entity(name = "mon")
-public class Mon {
+public class Mon implements Serializable{
 
     @Id
     @GeneratedValue(generator = "UUID")

@@ -7,6 +7,7 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -18,7 +19,7 @@ import java.util.UUID;
 @EqualsAndHashCode(exclude = "providers")
 @ToString(exclude = {"providers", "mons"})
 @Entity(name = "category")
-public class Category {
+public class Category implements Serializable{
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
