@@ -2,6 +2,8 @@ package vn.menugo.server.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -14,7 +16,8 @@ import java.util.UUID;
 /**
  * Created by itn0309 on 8/1/2017.
  */
-@Data
+@Getter
+@Setter
 @Entity(name = "bill")
 public class Bill {
 

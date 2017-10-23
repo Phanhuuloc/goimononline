@@ -1,10 +1,10 @@
-package vn.menugo.server.Service;
+package vn.menugo.server.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import vn.menugo.server.Repo.CategoryRepository;
-import vn.menugo.server.Repo.MonRepository;
-import vn.menugo.server.Repo.ProviderRepository;
+import vn.menugo.server.repo.CategoryRepository;
+import vn.menugo.server.repo.MonRepository;
+import vn.menugo.server.repo.ProviderRepository;
 import vn.menugo.server.model.Category;
 
 import vn.menugo.server.model.Mon;
@@ -43,17 +43,20 @@ public class ProviderService {
         return providerRepository.findAll();
     }
 
-    public void createCategory(UUID pid, String name) {
+    public Category createCategory(UUID pid, String name) {
         Provider provider = providerRepository.findByUuid(pid);
-        Category category = new Category(UUID.randomUUID(), name);
-        Set<Category> categories = provider.getCategories() != null ? provider.getCategories() : new HashSet<>();
-        categories.add(category);
+        Category category = categoryRepository.findFirstByNameAndProviderUuid(name, pid);
+        if (category == null) {
+            Set<Category> categories = provider.getCategories() != null ? provider.getCategories() : new HashSet<>();
+            categories.add(new Category(name));
+        }
         providerRepository.saveAndFlush(provider);
+        return category;
     }
 
-    public void fetchMon(UUID pid, String cName, String name, int price, String des, String note) {
+    public void fetchMon(UUID pid, String cat, String name, int price, String des, String note) {
         Provider provider = providerRepository.findOne(pid);
-        Category category = createCategory(cName);
+        Category category = createCategory(pid, cat);
 
         Set<Category> categories = provider.getCategories() != null ? provider.getCategories() : new HashSet<>();
         categories.add(category);
@@ -72,16 +75,4 @@ public class ProviderService {
         return mon != null ? mon : new Mon(UUID.randomUUID(), name, price, des, note);
     }
 
-    private Category createCategory(String name) {
-        Category category = categoryRepository.findByName(name);
-        return category != null ? category : new Category(UUID.randomUUID(), name);
-    }
-
-//    private Provider createProvider(UUID uuid) {
-//        Provider provider = providerRepository.findOne(uuid);
-//        if(null==provider){
-//            provider = new Provider();
-//        }
-//        return provider;
-//    }
 }

@@ -1,5 +1,6 @@
 package vn.menugo.server.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -14,8 +15,8 @@ import java.util.UUID;
 /**
  * Created by itn0309 on 5/29/2017.
  */
-@Data
-@EqualsAndHashCode(exclude = {"categories", "bills"})
+@Getter
+@Setter
 @Entity(name = "mon")
 public class Mon {
 
@@ -28,11 +29,12 @@ public class Mon {
     private String description;
     private String note;
 
-    @ManyToMany(mappedBy = "mons")
-    @Getter(AccessLevel.NONE)
-    @Setter(AccessLevel.NONE)
-    private Set<Category> categories = new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "category_uid")
+    @JsonBackReference
+    private Category category;
 
+    @JsonBackReference
     @ManyToMany(mappedBy = "mons")
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
