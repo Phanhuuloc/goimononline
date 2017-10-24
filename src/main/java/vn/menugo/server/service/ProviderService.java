@@ -29,8 +29,8 @@ public class ProviderService {
         this.monRepository = monRepository;
     }
 
-    public Provider getOne(UUID uuid) {
-        return providerRepository.getOne(uuid);
+    public Provider findByUuid(UUID uuid) {
+        return providerRepository.findByUuid(uuid);
     }
 
     public void create(Provider provider) {
@@ -45,10 +45,15 @@ public class ProviderService {
 
     public void createCategory(UUID pid, String name) {
         Provider provider = providerRepository.findByUuid(pid);
-        Category category = new Category(UUID.randomUUID(), name);
-        Set<Category> categories = provider.getCategories() != null ? provider.getCategories() : new HashSet<>();
-        categories.add(category);
-        providerRepository.saveAndFlush(provider);
+        Category category = categoryRepository.findByProviderUuidAndName(pid, name);
+        if (null == category) {
+            category = new Category(name);
+            category.setProvider(provider);
+            Set<Category> categories = provider.getCategories() != null ? provider.getCategories() : new HashSet<>();
+            categories.add(category);
+        }
+        categoryRepository.save(category);
+        providerRepository.save(provider);
     }
 
     public void fetchMon(UUID pid, String cat, String name, int price, String des, String note) {
@@ -64,7 +69,7 @@ public class ProviderService {
         mons.add(mon);
         category.setMons(mons);
 
-        providerRepository.saveAndFlush(provider);
+        providerRepository.save(provider);
     }
 
     private Mon createMon(String name, int price, String des, String note) {
@@ -74,7 +79,7 @@ public class ProviderService {
 
     private Category createCategory(String name) {
         Category category = categoryRepository.findByName(name);
-        return category != null ? category : new Category(UUID.randomUUID(), name);
+        return category != null ? category : new Category(name);
     }
 
 }

@@ -19,7 +19,7 @@ public class Bill implements Serializable {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "uid", updatable = false, nullable = false)
+    @Column(name = "uid", updatable = false, nullable = false, length = 16)
     private UUID uuid;
     private String type;
     private long price;

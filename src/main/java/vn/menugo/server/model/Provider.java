@@ -24,7 +24,7 @@ public class Provider implements Serializable{
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "uid", updatable = false, nullable = false)
+    @Column(name = "uid", updatable = false, nullable = false, length = 16)
     private UUID uuid;
     private String name;
     private String image;
@@ -37,10 +37,7 @@ public class Provider implements Serializable{
     private double star;
     private String token;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "provider_category",
-            joinColumns = {@JoinColumn(name = "uid_provider", referencedColumnName = "uid")},
-            inverseJoinColumns = {@JoinColumn(name = "uid_category", referencedColumnName = "uid")})
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "provider")
     private Set<Category> categories = new HashSet<>();
 
     public Provider() {

@@ -65,18 +65,18 @@ public class ProviderController {
 
     @GetMapping(value = "/{uuid}/menu", produces = {"application/json", "text/json"})
     public ResponseEntity getMenu(@PathVariable("uuid") UUID uuid) {
-        Set<Category> categories = providerService.getOne(uuid).getCategories();
+        Set<Category> categories = providerService.findByUuid(uuid).getCategories();
         return new ResponseEntity<>(new Wrap<>(categories), HttpStatus.OK);
     }
 
     @GetMapping(value = "/{uuid}/category", produces = {"application/json", "text/json"})
     public ResponseEntity getCategory(@PathVariable("uuid") UUID uuid) {
-        Set<Category> categories = providerService.getOne(uuid).getCategories();
+        Set<Category> categories = providerService.findByUuid(uuid).getCategories();
         return new ResponseEntity<>(new Wrap<>(categories), HttpStatus.OK);
     }
 
     @GetMapping(value = "/{uuid}", produces = {"application/json", "text/json"})
     public ResponseEntity getProvider(@PathVariable("uuid") UUID uuid) {
-        return new ResponseEntity<>(providerService.getOne(uuid), HttpStatus.OK);
+        return new ResponseEntity<>(providerService.findByUuid(uuid), HttpStatus.OK);
     }
 }
