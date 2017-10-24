@@ -1,5 +1,6 @@
 package vn.menugo.server.controller;
 
+import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import java.util.UUID;
 /**
  * Created by itn0309 on 8/2/2017.
  */
+@Api(tags = "Bill")
 @RestController
 @RequestMapping("/bill")
 public class BillController {
@@ -35,10 +37,11 @@ public class BillController {
         this.bService = bService;
     }
 
-    @PostMapping(value = "")
-    public ResponseEntity createBill(@RequestParam("puid") UUID puid,  @RequestParam("type") String type, @RequestParam("price") long price) {
-        Bill bill = bService.createBill(puid, type, price);
-        if (null != bill) {
+    @PostMapping(value = ""/*, consumes = MediaType.ALL_VALUE,
+            produces = {MediaType.ALL_VALUE}*/)
+    public ResponseEntity createBill(@RequestBody Bill data, @RequestParam("pid") UUID pid) {
+        Bill bill = bService.createBill(data, pid);
+        if (null != data) {
             return new ResponseEntity<>("success!", HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -58,13 +61,13 @@ public class BillController {
     }
 
     //View list menuItem of a bill
-    @RequestMapping(value = "{uuid}/menu", produces = {"application/json", "text/json"}, method = RequestMethod.GET)
-    public ResponseEntity getMenu(@PathVariable("uuid") UUID uuid) {
-        Bill bill = bService.findByUuid(uuid);
-        Set<Mon> menu = bill.getMons();
-        Wrap w = new Wrap<>(menu);
-        return new ResponseEntity<>(w, HttpStatus.OK);
-    }
+//    @RequestMapping(value = "{uuid}/menu", produces = {"application/json", "text/json"}, method = RequestMethod.GET)
+//    public ResponseEntity getMenu(@PathVariable("uuid") UUID uuid) {
+//        Bill bill = bService.findByUuid(uuid);
+//        Set<Mon> menu = bill.getMons();
+//        Wrap w = new Wrap<>(menu);
+//        return new ResponseEntity<>(w, HttpStatus.OK);
+//    }
 
 //    @RequestMapping(value = "status", produces = {"application/json", "text/json"}, method = RequestMethod.POST)
 //    public ResponseEntity<String> updateBillStatus(@PathVariable("uuid") UUID uuid) {

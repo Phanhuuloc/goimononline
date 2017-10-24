@@ -13,8 +13,8 @@ import java.util.UUID;
 /**
  * Created by itn0309 on 5/29/2017.
  */
-@Data
-@EqualsAndHashCode(exclude = {"category", "bills"})
+@Getter
+@Setter
 @Entity(name = "mon")
 public class Mon implements Serializable{
 
@@ -31,8 +31,6 @@ public class Mon implements Serializable{
     @ManyToOne
     @JoinColumn(name = "category_uid")
     @JsonBackReference
-    @Getter(AccessLevel.NONE)
-    @Setter(AccessLevel.NONE)
     private Category category;
 
     @ManyToMany(mappedBy = "mons")
@@ -40,8 +38,7 @@ public class Mon implements Serializable{
     @Setter(AccessLevel.NONE)
     private Set<Bill> bills = new HashSet<>();
 
-    public Mon(UUID uuid, String name, long price, String description, String note) {
-        this.uuid = uuid;
+    public Mon(String name, long price, String description, String note) {
         this.name = name;
         this.price = price;
         this.description = description;

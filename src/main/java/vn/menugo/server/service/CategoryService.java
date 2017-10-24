@@ -6,6 +6,7 @@ import vn.menugo.server.repo.CategoryRepository;
 import vn.menugo.server.model.Category;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class CategoryService {
@@ -19,5 +20,9 @@ public class CategoryService {
 
     public List<Category> findAll() {
         return categoryRepository.findAll();
+    }
+
+    public List<Category> findAllByProviderUuid(UUID pid) {
+        return categoryRepository.findAllByProviderUuid(pid);
     }
 }

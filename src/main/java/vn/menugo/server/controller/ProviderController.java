@@ -47,8 +47,8 @@ public class ProviderController {
 
     @PostMapping(value = "/cat", produces = {"application/json", "text/json"})
     public ResponseEntity createCategory(@RequestParam UUID pid, @RequestParam String name) {
-        providerService.createCategory(pid, name);
-        return new ResponseEntity(HttpStatus.OK);
+        Category category = providerService.createCategory(pid, name);
+        return new ResponseEntity<>(category, HttpStatus.OK);
     }
 
     @PostMapping(value = "/mon", produces = {"application/json", "text/json"})

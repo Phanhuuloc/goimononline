@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import vn.menugo.server.model.Category;
 
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -14,5 +15,6 @@ import java.util.UUID;
 public interface CategoryRepository extends JpaRepository<Category, UUID> {
     Category findByName(String name);
     Category findByUuid(UUID uuid);
+    List<Category> findAllByProviderUuid(UUID uuid);
     Category findByProviderUuidAndName(UUID uuid, String name);
 }

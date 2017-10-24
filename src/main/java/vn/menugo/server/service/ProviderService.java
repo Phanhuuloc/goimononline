@@ -43,7 +43,7 @@ public class ProviderService {
         return providerRepository.findAll();
     }
 
-    public void createCategory(UUID pid, String name) {
+    public Category createCategory(UUID pid, String name) {
         Provider provider = providerRepository.findByUuid(pid);
         Category category = categoryRepository.findByProviderUuidAndName(pid, name);
         if (null == category) {
@@ -54,32 +54,21 @@ public class ProviderService {
         }
         categoryRepository.save(category);
         providerRepository.save(provider);
+
+        return category;
     }
 
     public void fetchMon(UUID pid, String cat, String name, int price, String des, String note) {
-        Provider provider = providerRepository.findOne(pid);
-        Category category = createCategory(cat);
-
-        Set<Category> categories = provider.getCategories() != null ? provider.getCategories() : new HashSet<>();
-        categories.add(category);
-        provider.setCategories(categories);
-
-        Mon mon = createMon(name, price, des, note);
-        Set<Mon> mons = category.getMons() != null ? category.getMons() : new HashSet<>();
-        mons.add(mon);
-        category.setMons(mons);
-
-        providerRepository.save(provider);
-    }
-
-    private Mon createMon(String name, int price, String des, String note) {
-        Mon mon = monRepository.findByName(name);
-        return mon != null ? mon : new Mon(UUID.randomUUID(), name, price, des, note);
-    }
-
-    private Category createCategory(String name) {
-        Category category = categoryRepository.findByName(name);
-        return category != null ? category : new Category(name);
+        Category category = createCategory(pid, cat);
+        Mon mon = monRepository.findAllByCategoryProviderUuidAndCategoryNameAndName(pid, cat, name);
+        if (null == mon) {
+            mon = new Mon(name, price, des, note);
+            mon.setCategory(category);
+            Set<Mon> mons = category.getMons() != null ? category.getMons() : new HashSet<>();
+            mons.add(mon);
+        }
+        monRepository.save(mon);
+        categoryRepository.save(category);
     }
 
 }

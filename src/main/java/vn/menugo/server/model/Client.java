@@ -30,7 +30,6 @@ public class Client implements Serializable{
     private String email;
     private String address;
 
-    @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "client")
     private List<Bill> bill;
 

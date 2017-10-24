@@ -27,15 +27,10 @@ public class BillServices {
         return billRepository.save(bill);
     }
 
-    public Bill createBill(UUID puid, String type, long price) {
-        Bill bill = new Bill();
-        bill.setType(type);
-        bill.setPrice(price);
-
-        //todo send notification
-        notificationsService.pushNotificationToDevice(puid);
-
-        return billRepository.save(bill);
+    public Bill createBill(Bill data, UUID pid) {
+        Bill bill = billRepository.save(data);
+        notificationsService.pushNotificationToDevice(pid);
+        return bill;
     }
 
     public List<Bill> findAll() {

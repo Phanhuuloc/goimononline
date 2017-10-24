@@ -2,6 +2,7 @@ package vn.menugo.server.model;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.GenericGenerator;
@@ -43,4 +44,8 @@ public class Category implements Serializable {
         this.name = name;
     }
 
+    public Category(String name, String defaultImage) {
+        this.name = name;
+        this.defaultImage = defaultImage;
+    }
 }
