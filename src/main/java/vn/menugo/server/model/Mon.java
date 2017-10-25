@@ -33,7 +33,7 @@ public class Mon implements Serializable{
     @JsonBackReference
     private Category category;
 
-    @ManyToMany(mappedBy = "mons")
+    @ManyToMany(mappedBy = "mons", cascade = CascadeType.ALL)
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
     private Set<Bill> bills = new HashSet<>();

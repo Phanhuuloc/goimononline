@@ -54,7 +54,7 @@ public class BillController {
     }
 
     //View info Basic of a bill
-    @GetMapping(value = "{uuid}", produces = {"application/json", "text/json"})
+    @GetMapping(value = "/{uuid}", produces = {"application/json", "text/json"})
     public ResponseEntity getBill(@PathVariable("uuid") UUID uuid) {
         Bill bill = bService.findByUuid(uuid);
         return new ResponseEntity<>(bill, HttpStatus.OK);

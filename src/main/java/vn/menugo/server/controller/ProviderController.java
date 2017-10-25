@@ -79,4 +79,10 @@ public class ProviderController {
     public ResponseEntity getProvider(@PathVariable("uuid") UUID uuid) {
         return new ResponseEntity<>(providerService.findByUuid(uuid), HttpStatus.OK);
     }
+
+    @PostMapping(value = "/{uuid}/token", produces = {"application/json", "text/json"})
+    public ResponseEntity updateProviderToken(@PathVariable("uuid") UUID uuid, @RequestParam String token) {
+        Provider provider = providerService.updateToken(uuid, token);
+        return new ResponseEntity<>(provider, HttpStatus.OK);
+    }
 }

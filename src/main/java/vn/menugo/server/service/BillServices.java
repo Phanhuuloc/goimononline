@@ -20,7 +20,7 @@ public class BillServices {
     }
 
     public Bill findByUuid(UUID uuid) {
-        return billRepository.getOne(uuid);
+        return billRepository.findByUuid(uuid);
     }
 
     public Bill save(Bill bill) {

@@ -1,6 +1,7 @@
 package vn.menugo.server.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,7 +15,8 @@ import java.util.*;
 /**
  * Created by itn0309 on 8/1/2017.
  */
-@Data
+@Setter
+@Getter
 @Entity(name = "bill")
 public class Bill implements Serializable {
 
@@ -33,8 +35,7 @@ public class Bill implements Serializable {
     @JsonBackReference
     private Client client;
 
-    @ManyToMany
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "bill_mon",
             joinColumns = {@JoinColumn(name = "uid_bill", referencedColumnName = "uid")},
             inverseJoinColumns = {@JoinColumn(name = "uid_mon", referencedColumnName = "uid")})

@@ -71,4 +71,10 @@ public class ProviderService {
         categoryRepository.save(category);
     }
 
+    public Provider updateToken(UUID uuid, String token) {
+        Provider provider = providerRepository.findByUuid(uuid);
+        provider.setToken(token);
+        providerRepository.save(provider);
+        return provider;
+    }
 }
